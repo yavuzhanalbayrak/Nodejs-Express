@@ -10,7 +10,6 @@ const {
   deleteUser,
 } = require("../controller/userController");
 const validateToken = require("../middlewares/validateTokenHandler");
-//const { getUser } = require("../controller/companyController");
 
 router.get("/", getUsers);
 router.get("/:id", getUserById);
