@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { config } = require("../config");
 
-// ["admin", "user"]
 const validateToken = (permissions) => {
   return async (req, res, next) => {
     let token;

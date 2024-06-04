@@ -1,21 +1,16 @@
 const express = require("express");
 const { config } = require("./config");
 const { logger } = require("./middlewares/logger");
-const health = require("./routes/healthRoutes");
+const userRoutes = require("./routes/userRoutes");
 const bodyParser = require("body-parser");
-const connectDb = require("./database/connectDb")
+const connectDb = require("./database/connectDb");
 
 const app = express();
 connectDb();
 
-// JSON veri analizi için bodyParser middleware'ini uygula
 app.use(bodyParser.json());
 
-// URL kodlu veri analizi için bodyParser middleware'ini uygula
 app.use(bodyParser.urlencoded({ extended: true }));
-
-//RESTFUL API
-//GET POST PUT DELETE
 
 const port = config.port;
 const cors = require("cors");
@@ -29,9 +24,8 @@ app.use(
 
 app.use(logger);
 
-app.use("/users", health);
+app.use("/users", userRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
-

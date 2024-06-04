@@ -2,22 +2,21 @@ const express = require("express");
 const app = express();
 const router = express.Router();
 const {
-  getHealth,
+  getUsers,
   methodNotAllowed,
-  createHealth,
-  updateHealth,
-  deleteHealth,
-  getHealthById
-} = require("../controller/healthController");
+  getUserById,
+  register,
+  updateUser,
+  deleteUser,
+} = require("../controller/userController");
 const validateToken = require("../middlewares/validateTokenHandler");
 //const { getUser } = require("../controller/companyController");
 
-router.get("/",validateToken(["user"]), getHealth);
-router.get("/:id", getHealthById);
-router.post("/", createHealth);
-router.put("/:id", updateHealth);
-router.delete("/:id", deleteHealth);
-
+router.get("/", getUsers);
+router.get("/:id", getUserById);
+router.post("/", register);
+router.put("/:id", updateUser);
+router.delete("/:id", deleteUser);
 
 router.all("/", methodNotAllowed);
 

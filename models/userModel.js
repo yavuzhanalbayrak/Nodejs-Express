@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema(
     },
     middlename: {
       type: String,
-      default:"HAN",
+      default: "HAN",
     },
     lastname: {
       type: String,

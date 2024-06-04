@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const User = require("../models/healthModel");
+const User = require("../models/userModel");
 
-const getHealth = (req, res) => {
+const getUsers = (req, res) => {
   User.find().then((users) => {
     res.status(200).json({
       users,
@@ -9,7 +9,7 @@ const getHealth = (req, res) => {
   });
 };
 
-const getHealthById = (req, res) => {
+const getUserById = (req, res) => {
   User.findById(req.params.id).then((user) => {
     res.status(200).json({
       user,
@@ -17,7 +17,7 @@ const getHealthById = (req, res) => {
   });
 };
 
-const createHealth = async (req, res) => {
+const register = async (req, res) => {
   const { firstname, lastname, middlename } = req.body;
 
   //Database create işlemi
@@ -27,14 +27,13 @@ const createHealth = async (req, res) => {
     middlename,
   })
     .then((user) => {
-      console.log(`db işlemi bitti ve user: ${user}`);
       res.status(201).json(user);
     })
     .catch((err) => {
       res.status(500).json("error", err);
     });
 };
-const updateHealth = (req, res) => {
+const updateUser = (req, res) => {
   const { firstname, lastname, middlename } = req.body;
 
   User.findByIdAndUpdate(
@@ -58,20 +57,18 @@ const updateHealth = (req, res) => {
     });
 };
 
-const deleteHealth = (req, res) => {
-
+const deleteUser = (req, res) => {
   User.findByIdAndDelete(req.params.id)
-  .then(user => {
-    if (!user) {
-      return res.status(404).json({ message: "Kullanıcı bulunamadı" });
-    }
-    res.status(200).json({ message: "Kullanıcı başarıyla silindi", user });
-  })
-  .catch(err => {
-    console.error("Kullanıcı silinirken bir hata oluştu:", err);
-    res.status(500).json({ message: "Kullanıcı silinirken bir hata oluştu" });
-  });
-
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "Kullanıcı bulunamadı" });
+      }
+      res.status(200).json({ message: "Kullanıcı başarıyla silindi", user });
+    })
+    .catch((err) => {
+      console.error("Kullanıcı silinirken bir hata oluştu:", err);
+      res.status(500).json({ message: "Kullanıcı silinirken bir hata oluştu" });
+    });
 };
 
 const methodNotAllowed = (req, res) => {
@@ -79,10 +76,10 @@ const methodNotAllowed = (req, res) => {
 };
 
 module.exports = {
-  getHealth,
+  getUsers,
   methodNotAllowed,
-  createHealth,
-  updateHealth,
-  deleteHealth,
-  getHealthById,
+  getUserById,
+  register,
+  updateUser,
+  deleteUser,
 };
