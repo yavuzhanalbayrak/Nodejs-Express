@@ -9,9 +9,10 @@ const {
   deleteHealth,
   getHealthById
 } = require("../controller/healthController");
+const validateToken = require("../middlewares/validateTokenHandler");
 //const { getUser } = require("../controller/companyController");
 
-router.get("/", getHealth);
+router.get("/",validateToken(["user"]), getHealth);
 router.get("/:id", getHealthById);
 router.post("/", createHealth);
 router.put("/:id", updateHealth);
