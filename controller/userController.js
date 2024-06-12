@@ -57,6 +57,7 @@ const updateUser = (req, res) => {
     });
 };
 
+
 const deleteUser = (req, res) => {
   User.findByIdAndDelete(req.params.id)
     .then((user) => {
